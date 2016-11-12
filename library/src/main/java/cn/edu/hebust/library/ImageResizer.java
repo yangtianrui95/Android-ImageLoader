@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.FileDescriptor;
+
 /**
  * Created by shixi_tianrui1 on 16-11-6.
  * 图片尺寸的调整
@@ -58,5 +60,18 @@ public class ImageResizer {
         // 选用最小的压缩比,可以保证图片会大于ImageView的尺寸,不会失真
         Log.d(TAG, "calculateInSampleSize: inSampleSize=" + sampleSize);
         return sampleSize;
+    }
+
+
+    /**
+     * 根据FileDescriptor获取调整采样率的图片
+     */
+    public Bitmap decodeSampledBmpFromFD(FileDescriptor fd, int reqWidth, int reqHeight) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFileDescriptor(fd, null, options);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFileDescriptor(fd, null, options);
     }
 }
