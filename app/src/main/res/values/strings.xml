@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ImageLoader</string>
+    <string name="none">None</string>
 </resources>

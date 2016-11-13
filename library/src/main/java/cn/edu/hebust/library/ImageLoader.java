@@ -65,8 +65,12 @@ public class ImageLoader {
             LoaderResult result = (LoaderResult) msg.obj;
             switch (msg.what) {
                 case MSG_POST_RESULT:
-                    // FIXME: 16-11-6 maybe error
-                    result.mIvImg.setImageBitmap(result.mBmp);
+                    if (result.mIvImg.getTag().equals(result.mUri)) {
+                        result.mIvImg.setImageBitmap(result.mBmp);
+                        Log.d(TAG, "handleMessage: bind bitmap success");
+                    } else {
+                        Log.d(TAG, "handleMessage: tag has changed, can't bind this bitmap.");
+                    }
                     break;
             }
         }
@@ -199,8 +203,8 @@ public class ImageLoader {
         }
         // 从网络中获取图片
         if (bitmap == null && !mIsDiskLruCacheCreated)
-            return downloadBmpFromNet(uri);
-        return null;
+            bitmap = downloadBmpFromNet(uri);
+        return bitmap;
     }
 
 

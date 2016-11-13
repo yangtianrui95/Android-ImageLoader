@@ -10,9 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cn.edu.hebust.imageloader.MainActivity">
 
-    <ImageView
-        android:id="@+id/test"
+
+    <!--stretchMode: 缩放与列宽大小同步-->
+    <GridView
+        android:id="@+id/id_gv_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_height="match_parent"
+        android:horizontalSpacing="5dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp" />
+
 </RelativeLayout>
